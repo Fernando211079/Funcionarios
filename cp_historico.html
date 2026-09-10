@@ -42,12 +42,7 @@
     <div class="col-md-4">
       <select id="filtroStatus" class="form-select">
         <option value="">Todos os status</option>
-        <option>Pendente Gerente</option>
-        <option>Pendente RH</option>
-        <option>Recebida pelo RH</option>
-        <option>Aprovada pelo RH</option>
-        <option>Recusada pelo Gerente</option>
-        <option>Recusada pelo RH</option>
+        <option>Registrada</option>
       </select>
     </div>
   </div>
@@ -107,20 +102,13 @@ const grupo = c => c.tipo === 'ocorrencia'
   : `${c.funcionarios?.length || 0} funcionário(s)`;
 
 function badge(s) {
-  const m = {
-    'Pendente Gerente'    : 'text-bg-warning',
-    'Pendente RH'         : 'text-bg-warning',
-    'Recebida pelo RH'    : 'text-bg-info',
-    'Aprovada pelo RH'    : 'text-bg-success',
-    'Recusada pelo Gerente': 'text-bg-danger',
-    'Recusada pelo RH'    : 'text-bg-danger'
-  };
-  return `<span class="badge ${m[s] || 'text-bg-secondary'}">${s || 'Pendente'}</span>`;
+  const m = { 'Registrada': 'text-bg-success' };
+  return `<span class="badge ${m[s] || 'text-bg-secondary'}">${s || 'Registrada'}</span>`;
 }
 
 function documento(c) {
   if (c.tipo === 'ocorrencia') {
-    return `<div class="top"><div><div class="title">INDEMETAL</div><div>COMUNICAÇÃO DE PESSOAL</div></div>`
+    return `<div class="top"><div><div class="title">EMPRESA</div><div>COMUNICAÇÃO DE PESSOAL</div></div>`
       + `<div><b>CP Nº:</b> ${c.numero || '-'}</div></div>`
       + `<div class="section"><b>Nome:</b> ${esc(c.funcionarioNome || '')} &nbsp; <b>Chapa:</b> ${esc(c.chapa || '')} &nbsp; <b>Setor:</b> ${esc(c.setor || '')} &nbsp; <b>Data:</b> ${formatarDataBR(c.data)}</div>`
       + blocoAcoesCP(c)
@@ -129,7 +117,7 @@ function documento(c) {
   const rows = (c.funcionarios || []).map(x =>
     `<tr><td>${esc(x.reg||'')}</td><td>${esc(x.nome||'')}</td><td>${esc(x.horario||'')}</td><td>${esc(x.observacao||'')}</td></tr>`
   ).join('');
-  return `<div class="top"><div><div class="title">INDEMETAL</div><div>AUTORIZAÇÃO PARA REALIZAÇÃO DE HORAS EXTRAS</div></div>`
+  return `<div class="top"><div><div class="title">EMPRESA</div><div>AUTORIZAÇÃO PARA REALIZAÇÃO DE HORAS EXTRAS</div></div>`
     + `<div>SETOR: ${esc(c.setor || '')}</div></div>`
     + `<div class="section"><b>DATA:</b> ${formatarDataBR(c.data)}<br><b>MOTIVO:</b><br>${String(c.motivo || '').replace(/\n/g, '<br>')}</div>`
     + `<div class="section"><table style="width:100%;border-collapse:collapse">`
@@ -168,7 +156,7 @@ function render() {
   const s = $('filtroStatus').value;
   const arr = cps.filter(c =>
     (!f || c.tipo === f) &&
-    (!s || (c.statusCP || 'Pendente Gerente') === s) &&
+    (!s || (c.statusCP || 'Registrada') === s) &&
     (!q || `${c.numero} ${c.funcionarioNome || ''} ${c.tipo} ${c.setor || ''}`.toLowerCase().includes(q))
   );
   $('lista').innerHTML = arr.length
@@ -178,7 +166,7 @@ function render() {
         <td>${formatarDataBR(c.data)}</td>
         <td>${esc(grupo(c))}</td>
         <td>${esc(c.setor || '-')}</td>
-        <td>${badge(c.statusCP || 'Pendente Gerente')}</td>
+        <td>${badge(c.statusCP || 'Registrada')}</td>
         <td>${c.atualizadoEm ? new Date(c.atualizadoEm).toLocaleString('pt-BR') : '-'}</td>
         <td>
           <div class="btn-group btn-group-sm">
@@ -217,7 +205,7 @@ function renderizarTimeline(historico) {
 function abrir(c) {
   selecionada = c;
   $('titulo').textContent = `CP Nº ${c.numero || '-'} · ${labelTipoCP(c)}`;
-  $('sub').innerHTML = `${esc(c.setor || '-')} · ${formatarDataBR(c.data)} · ${badge(c.statusCP || 'Pendente Gerente')}`;
+  $('sub').innerHTML = `${esc(c.setor || '-')} · ${formatarDataBR(c.data)} · ${badge(c.statusCP || 'Registrada')}`;
   $('detalhes').innerHTML = documento(c);
   renderizarTimeline(c.historico);
   modal.show();

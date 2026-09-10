@@ -1,6 +1,6 @@
 # Projeto Funcionários — V6 Multi-Setor (revisada)
 
-Sistema web estático da Indemetal para gestão de funcionários, CPs e horas extras, preparado para vários setores em um único ambiente.
+Sistema web estático para gestão de funcionários, CPs e horas extras, com perfil único de Gestor.
 
 ## Arquitetura
 - Um único Firebase (`site-funcionario`) e um único site Netlify.

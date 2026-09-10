@@ -1,7 +1,7 @@
 {
-  "name": "Projeto Funcionários — Indemetal Etiquetas",
+  "name": "Projeto Funcionários",
   "short_name": "Funcionários",
-  "description": "Gestão de funcionários e fluxo de Comunicação de Pessoal (Gestor → Gerente de Produção → RH).",
+  "description": "Gestão de funcionários e Comunicações de Pessoal.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
