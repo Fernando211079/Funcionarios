@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyAU1TEO_tVD9Oe6F_QojVaUv4GxQxG4kE8",
-  authDomain: "site-funcionario.firebaseapp.com",
-  projectId: "site-funcionario",
-  storageBucket: "site-funcionario.firebasestorage.app",
-  messagingSenderId: "1060306387813",
-  appId: "1:1060306387813:web:4802d7c10f592f54a9178c"
+  apiKey: "AIzaSyB1sqqEpWdo58Q4vgu7J-Zhe_45NLXWE5k",
+  authDomain: "gestao-de-funcionarios-2c859.firebaseapp.com",
+  projectId: "gestao-de-funcionarios-2c859",
+  storageBucket: "gestao-de-funcionarios-2c859.firebasestorage.app",
+  messagingSenderId: "733217019217",
+  appId: "1:733217019217:web:a20249cb269b5067aeaf70"
 };
