@@ -1,5 +1,5 @@
 import { getApps, initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { firebaseConfig } from "./firebase-config.js";
 let auth = null;
 export function initAuth(){ const app=getApps().length?getApps()[0]:initializeApp(firebaseConfig); auth=getAuth(app); return auth; }
@@ -7,6 +7,7 @@ export function getAuthInstance(){return auth||initAuth();}
 export function usuarioAtual(){return getAuthInstance().currentUser;}
 export async function entrar(email,senha){return signInWithEmailAndPassword(getAuthInstance(),email,senha);}
 export async function sair(){return signOut(getAuthInstance());}
+export async function redefinirSenha(email){return sendPasswordResetEmail(getAuthInstance(),email);}
 export function observarSessao(callback){return onAuthStateChanged(getAuthInstance(),callback);}
 export async function exigirLogin(destino="funcionarios_inicio.html"){
   const a=getAuthInstance();
