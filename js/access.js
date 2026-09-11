@@ -3,8 +3,6 @@ import { getFirestore, collection, getDocs, doc, setDoc } from "https://www.gsta
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { firebaseConfig } from "./firebase-config.js";
 
-export const SETORES_PADRAO = ["Serigrafia","Corte","Estamparia","Plotter","Embalagem","Comercial","Administração","Resina","Digital"];
-
 function app(){ return getApps().length ? getApps()[0] : initializeApp(firebaseConfig); }
 function db(){ return getFirestore(app()); }
 function auth(){ return getAuth(app()); }
@@ -20,8 +18,7 @@ export async function getPerfilAtual(){
 
 export async function listarSetores(){
   const snap = await getDocs(collection(db(), "setores"));
-  const dbSetores = snap.docs.map(d=>({id:d.id,...d.data()})).filter(s=>s.ativo !== false).sort((a,b)=>(a.nome||"").localeCompare(b.nome||""));
-  return dbSetores.length ? dbSetores : SETORES_PADRAO.map(nome=>({id:nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-"),nome,ativo:true}));
+  return snap.docs.map(d=>({id:d.id,...d.data()})).filter(s=>s.ativo !== false).sort((a,b)=>(a.nome||"").localeCompare(b.nome||""));
 }
 
 export async function salvarSetor(nome){
